@@ -48,7 +48,6 @@ public class HelloController {
         return noteService.findAll();
     }
 
-
     @GetMapping("/api/test-delete/{id}")
     public String testDelete(@PathVariable Long id) {
         noteService.delete(id);
