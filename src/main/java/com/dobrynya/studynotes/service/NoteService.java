@@ -1,7 +1,10 @@
 package com.dobrynya.studynotes.service;
 
+import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.repository.NoteRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class NoteService {
@@ -9,5 +12,9 @@ public class NoteService {
 
     public NoteService(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
+    }
+
+    public List<Note> findAll() {
+        return noteRepository.findAll();
     }
 }
