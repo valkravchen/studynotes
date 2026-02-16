@@ -27,4 +27,11 @@ public class NoteService {
     public Note save(Note note) {
         return noteRepository.save(note);
     }
+
+    public void delete(Long id) {
+        if (!noteRepository.existsById(id)) {
+            throw new NoteNotFoundException(id);
+        }
+        noteRepository.deleteById(id);
+    }
 }
