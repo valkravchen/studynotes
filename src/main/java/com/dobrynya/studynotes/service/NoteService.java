@@ -1,5 +1,6 @@
 package com.dobrynya.studynotes.service;
 
+import com.dobrynya.studynotes.exception.NoteNotFoundException;
 import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.repository.NoteRepository;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,10 @@ public class NoteService {
 
     public List<Note> findAll() {
         return noteRepository.findAll();
+    }
+
+    public Note findById(Long id) {
+        return noteRepository.findById(id)
+                .orElseThrow(() -> new NoteNotFoundException(id));
     }
 }
