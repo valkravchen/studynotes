@@ -4,6 +4,7 @@ import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.NoteService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,5 +46,12 @@ public class HelloController {
     @GetMapping("/api/test-all")
     public List<Note> testAll() {
         return noteService.findAll();
+    }
+
+
+    @GetMapping("/api/test-delete/{id}")
+    public String testDelete(@PathVariable Long id) {
+        noteService.delete(id);
+        return "Заметка с id=" + id + " удалена";
     }
 }
