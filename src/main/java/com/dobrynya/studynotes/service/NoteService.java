@@ -23,4 +23,8 @@ public class NoteService {
         return noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
     }
+
+    public Note save(Note note) {
+        return noteRepository.save(note);
+    }
 }
