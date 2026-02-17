@@ -1,6 +1,7 @@
 package com.dobrynya.studynotes.service;
 
 import com.dobrynya.studynotes.exception.NoteNotFoundException;
+import com.dobrynya.studynotes.mapper.NoteMapper;
 import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.repository.NoteRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class NoteService {
     private final NoteRepository noteRepository;
+    private final NoteMapper noteMapper;
 
-    public NoteService(NoteRepository noteRepository) {
+    public NoteService(NoteRepository noteRepository, NoteMapper noteMapper) {
         this.noteRepository = noteRepository;
+        this.noteMapper = noteMapper;
     }
 
     public List<Note> findAll() {
