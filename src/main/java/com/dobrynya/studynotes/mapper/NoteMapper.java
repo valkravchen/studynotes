@@ -6,6 +6,8 @@ import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.model.NoteType;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class NoteMapper {
     public Note toEntity(NoteCreateDTO dto) {
@@ -31,5 +33,11 @@ public class NoteMapper {
             dto.setType(note.getType().name().toUpperCase());
         }
         return dto;
+    }
+
+    public List<NoteResponseDTO> toResponseDTOList(List<Note> notes) {
+        return notes.stream()
+                .map(this::toResponseDTO)
+                .toList();
     }
 }
