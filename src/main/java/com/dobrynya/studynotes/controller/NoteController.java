@@ -1,11 +1,11 @@
 package com.dobrynya.studynotes.controller;
 
+import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.service.NoteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +26,11 @@ public class NoteController {
     @GetMapping("/{id}")
     public NoteResponseDTO findById(@PathVariable Long id) {
         return noteService.findById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<NoteResponseDTO> create(@RequestBody NoteCreateDTO dto) {
+        NoteResponseDTO saved = noteService.save(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 }
