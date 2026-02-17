@@ -33,4 +33,9 @@ public class NoteController {
         NoteResponseDTO saved = noteService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
+    @PutMapping("/{id}")
+    public NoteResponseDTO update(@PathVariable Long id, @RequestBody NoteCreateDTO dto) {
+        return noteService.update(id, dto);
+    }
 }
