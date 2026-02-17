@@ -5,6 +5,7 @@ import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.exception.NoteNotFoundException;
 import com.dobrynya.studynotes.mapper.NoteMapper;
 import com.dobrynya.studynotes.model.Note;
+import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
@@ -44,13 +45,17 @@ public class NoteService {
         noteRepository.deleteById(id);
     }
 
-//    public Note update(Long id, Note updateNote) {
-//        Note existing = findById(id);
-//        existing.setTitle(updateNote.getTitle());
-//        existing.setContent(updateNote.getContent());
-//        existing.setType(updateNote.getType());
-//        return noteRepository.save(existing);
-//    }
+    public NoteResponseDTO update(Long id, NoteCreateDTO dto) {
+        Note existing = findNoteById(id);
+        existing.setTitle(dto.getTitle());
+        existing.setContent(dto.getContent());
+
+        if (dto.getType() != null && !dto.getType().isBlank()) {
+            existing.setType(NoteType.valueOf(dto.getType().toUpperCase()));
+        }
+        Note saved = noteRepository.save(existing);
+        return noteMapper.toResponseDTO(saved);
+    }
 
     private Note findNoteById(Long id) {
         return noteRepository.findById(id)
