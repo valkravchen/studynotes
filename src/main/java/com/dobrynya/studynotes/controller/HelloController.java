@@ -1,5 +1,7 @@
 package com.dobrynya.studynotes.controller;
 
+import com.dobrynya.studynotes.dto.NoteCreateDTO;
+import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.NoteService;
@@ -34,17 +36,16 @@ public class HelloController {
     }
 
     @GetMapping("/api/test-create")
-    public String testCreate() {
-        Note note = new Note();
-        note.setTitle("Stream API — основы");
-        note.setContent("# Stream API\n\nStream — это поток данных...");
-        note.setType(NoteType.LESSON);
-        Note saved = noteService.save(note);
-        return "Создана заметка с id=" + saved.getId() + ", title=" + saved.getTitle();
+    public NoteResponseDTO testCreate() {
+        NoteCreateDTO dto = new NoteCreateDTO();
+        dto.setTitle("Stream API — основы");
+        dto.setContent("# Stream API\n\nStream — это поток данных...");
+        dto.setType("LESSON");
+        return noteService.save(dto);
     }
 
     @GetMapping("/api/test-all")
-    public List<Note> testAll() {
+    public List<NoteResponseDTO> testAll() {
         return noteService.findAll();
     }
 
