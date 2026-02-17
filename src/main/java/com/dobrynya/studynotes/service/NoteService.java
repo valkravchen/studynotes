@@ -1,5 +1,6 @@
 package com.dobrynya.studynotes.service;
 
+import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.exception.NoteNotFoundException;
 import com.dobrynya.studynotes.mapper.NoteMapper;
@@ -23,15 +24,17 @@ public class NoteService {
         List<Note> notes = noteRepository.findAll();
         return noteMapper.toResponseDTOList(notes);
     }
-    
+
     public NoteResponseDTO findById(Long id) {
         Note note = noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
         return noteMapper.toResponseDTO(note);
     }
 
-    public Note save(Note note) {
-        return noteRepository.save(note);
+    public NoteResponseDTO save(NoteCreateDTO dto) {
+        Note note = noteMapper.toEntity(dto);
+        Note saved = noteRepository.save(note);
+        return noteMapper.toResponseDTO(saved);
     }
 
     public void delete(Long id) {
