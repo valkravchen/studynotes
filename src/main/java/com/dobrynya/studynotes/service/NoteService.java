@@ -18,15 +18,16 @@ public class NoteService {
         this.noteRepository = noteRepository;
         this.noteMapper = noteMapper;
     }
-    
+
     public List<NoteResponseDTO> findAll() {
         List<Note> notes = noteRepository.findAll();
         return noteMapper.toResponseDTOList(notes);
     }
-
-    public Note findById(Long id) {
-        return noteRepository.findById(id)
+    
+    public NoteResponseDTO findById(Long id) {
+        Note note = noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
+        return noteMapper.toResponseDTO(note);
     }
 
     public Note save(Note note) {
