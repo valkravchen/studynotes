@@ -28,7 +28,7 @@ public class NoteService {
             try {
                 NoteType noteType = NoteType.valueOf(type.toUpperCase());
                 notes = noteRepository.findByType(noteType);
-            } catch (InvalidNoteTypeException e) {
+            } catch (IllegalArgumentException e) {
                 throw new InvalidNoteTypeException(type);
             }
         } else {
