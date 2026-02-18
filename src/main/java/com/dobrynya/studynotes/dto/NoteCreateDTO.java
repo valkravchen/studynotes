@@ -1,6 +1,12 @@
 package com.dobrynya.studynotes.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class NoteCreateDTO {
+
+    @NotBlank(message = "Заголовок не может быть пустым")
+    @Size(max = 500, message = "Заголовок не может быть длиннее 500 символов")
     private String title;
     private String content;
     private String type;
