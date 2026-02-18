@@ -2,12 +2,14 @@ package com.dobrynya.studynotes.controller;
 
 import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
+import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.NoteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -44,5 +46,12 @@ public class NoteController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         noteService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/notes/types")
+    public List<String> getTypes() {
+        return Arrays.stream(NoteType.values())
+                .map(NoteType::name)
+                .toList();
     }
 }
