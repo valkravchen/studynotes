@@ -2,6 +2,7 @@ package com.dobrynya.studynotes.service;
 
 import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
+import com.dobrynya.studynotes.exception.InvalidNoteTypeException;
 import com.dobrynya.studynotes.exception.NoteNotFoundException;
 import com.dobrynya.studynotes.mapper.NoteMapper;
 import com.dobrynya.studynotes.model.Note;
@@ -21,8 +22,18 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
-    public List<NoteResponseDTO> findAll() {
-        List<Note> notes = noteRepository.findAll();
+    public List<NoteResponseDTO> findAll(String type) {
+        List<Note> notes;
+        if (type != null && !type.isBlank()) {
+            try {
+                NoteType noteType = NoteType.valueOf(type.toUpperCase());
+                notes = noteRepository.findByType(noteType);
+            } catch (InvalidNoteTypeException e) {
+                throw new InvalidNoteTypeException(type);
+            }
+        } else {
+            notes = noteRepository.findAll();
+        }
         return noteMapper.toResponseDTOList(notes);
     }
 
