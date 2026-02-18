@@ -20,8 +20,8 @@ public class NoteController {
     }
 
     @GetMapping
-    public List<NoteResponseDTO> findAll() {
-        return noteService.findAll();
+    public List<NoteResponseDTO> findAll(@RequestParam(required = false) String type) {
+        return noteService.findAll(type);
     }
 
     @GetMapping("/{id}")
