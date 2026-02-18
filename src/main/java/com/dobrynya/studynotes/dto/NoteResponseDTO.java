@@ -1,7 +1,10 @@
 package com.dobrynya.studynotes.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.time.LocalDateTime;
 
+@JsonPropertyOrder({"id", "title", "content", "type", "createdAt", "updatedAt"})
 public class NoteResponseDTO {
     private Long id;
     private String title;
