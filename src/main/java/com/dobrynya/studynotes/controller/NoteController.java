@@ -48,7 +48,7 @@ public class NoteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/notes/types")
+    @GetMapping("/types")
     public List<String> getTypes() {
         return Arrays.stream(NoteType.values())
                 .map(NoteType::name)
