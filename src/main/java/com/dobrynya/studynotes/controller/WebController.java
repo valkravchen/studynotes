@@ -1,5 +1,6 @@
 package com.dobrynya.studynotes.controller;
 
+import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.service.NoteService;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,5 +45,21 @@ public class WebController {
     @GetMapping("/notes/new")
     public String showCreateForm() {
         return "note-form";
+    }
+
+    @PostMapping("/notes")
+    public String createNote(
+            @RequestParam String title,
+            @RequestParam(required = false) String content,
+            @RequestParam(required = false) String type
+    ) {
+        NoteCreateDTO dto = new NoteCreateDTO();
+        dto.setTitle(title);
+        dto.setContent(content);
+        dto.setType(type);
+
+        noteService.save(dto);
+
+        return "redirect:/notes";
     }
 }
