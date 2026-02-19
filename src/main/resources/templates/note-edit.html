@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование — StudyNotes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <h1>Редактирование заметки</h1>
+
+    <form th:action="@{/notes/{id}/edit(id=${note.id})}" method="post">
+
+        <!-- Заголовок — предзаполнен через th:value -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок</label>
+            <input type="text" id="title" name="title"
+                   class="form-control" th:value="${note.title}" required>
+        </div>
+
+        <!-- Содержимое — предзаполнено через th:text (между тегами) -->
+        <div class="mb-3">
+            <label for="content" class="form-label">Содержимое</label>
+            <textarea id="content" name="content"
+                      class="form-control" rows="10"
+                      th:text="${note.content}"></textarea>
+        </div>
+
+        <!-- Тип — текущий тип выбран через th:selected -->
+        <div class="mb-3">
+            <label for="type" class="form-label">Тип</label>
+            <select id="type" name="type" class="form-select">
+                <option value="">-- Выберите тип --</option>
+                <option value="LESSON" th:selected="${note.type == 'LESSON'}">Урок</option>
+                <option value="REVIEW" th:selected="${note.type == 'REVIEW'}">Повторение</option>
+                <option value="CHEATSHEET" th:selected="${note.type == 'CHEATSHEET'}">Шпаргалка</option>
+                <option value="GUIDE" th:selected="${note.type == 'GUIDE'}">Руководство</option>
+            </select>
+        </div>
+
+        <!-- Кнопки -->
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/notes}" class="btn btn-outline-secondary">Отмена</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>
