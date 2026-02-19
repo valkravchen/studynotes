@@ -62,4 +62,11 @@ public class WebController {
 
         return "redirect:/notes";
     }
+
+    @GetMapping("/notes/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        NoteResponseDTO note = new NoteResponseDTO();
+        model.addAttribute("note", note);
+        return "note-edit";
+    }
 }
