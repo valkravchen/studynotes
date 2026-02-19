@@ -32,7 +32,26 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Строки таблицы добавим в следующем задании -->
+        <tr th:each="note, status : ${notes}">
+            <td th:text="${status.count}">1</td>
+            <td th:text="${note.title}">Название</td>
+            <td>
+                <span class="badge bg-secondary" th:text="${note.type}">ТИП</span>
+            </td>
+            <td th:text="${note.createdAt}">2026-01-01</td>
+            <td>
+                <a th:href="@{/notes/{id}/edit(id=${note.id})}" class="btn btn-sm btn-outline-primary">
+                    Редактировать
+                </a>
+                <form th:action="@{/notes/{id}/delete(id=${note.id})}" method="post"
+                      style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Удалить эту заметку?')">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 
