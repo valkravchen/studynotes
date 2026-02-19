@@ -39,4 +39,9 @@ public class WebController {
         noteService.delete(id);
         return "redirect:/notes";
     }
+
+    @GetMapping("/notes/new")
+    public String showCreateForm() {
+        return "note-form";
+    }
 }
