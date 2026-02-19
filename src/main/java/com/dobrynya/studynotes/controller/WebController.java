@@ -29,6 +29,6 @@ public class WebController {
     public String listNotes(Model model) {
         List<NoteResponseDTO> notes = noteService.findAll(null);
         model.addAttribute("notes", notes);
-        return "list-notes";
+        return "note-list";
     }
 }
