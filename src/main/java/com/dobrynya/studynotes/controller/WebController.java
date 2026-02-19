@@ -65,7 +65,7 @@ public class WebController {
 
     @GetMapping("/notes/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
-        NoteResponseDTO note = new NoteResponseDTO();
+        NoteResponseDTO note = noteService.findById(id);
         model.addAttribute("note", note);
         return "note-edit";
     }
