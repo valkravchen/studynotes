@@ -69,4 +69,19 @@ public class WebController {
         model.addAttribute("note", note);
         return "note-edit";
     }
+
+    @PostMapping("/notes/{id}/edit")
+    public String updateNote(
+            @PathVariable Long id,
+            @RequestParam String title,
+            @RequestParam(required = false) String content,
+            @RequestParam(required = false) String type
+    ) {
+        NoteCreateDTO dto = new NoteCreateDTO();
+        dto.setTitle(title);
+        dto.setContent(content);
+        dto.setType(type);
+        noteService.update(id, dto);
+        return "redirect:/notes";
+    }
 }
