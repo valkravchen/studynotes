@@ -15,9 +15,54 @@
         <a th:href="@{/notes/new}" class="btn btn-success">+ Добавить заметку</a>
     </div>
 
-    <!-- Сообщение, если заметок нет -->
-    <div class="alert alert-info" th:if="${#lists.isEmpty(notes)}">
+    <!-- Поиск и фильтрация -->
+    <div class="row mb-3">
+        <!-- Поиск по заголовку -->
+        <div class="col-md-6">
+            <form th:action="@{/notes}" method="get">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control"
+                           placeholder="Поиск по заголовку..."
+                           th:value="${search}">
+                    <button type="submit" class="btn btn-outline-primary">Найти</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Фильтр по типу -->
+        <div class="col-md-4">
+            <form th:action="@{/notes}" method="get">
+                <div class="input-group">
+                    <select name="type" class="form-select">
+                        <option value="">Все типы</option>
+                        <option th:each="t : ${types}"
+                                th:value="${t.name()}"
+                                th:text="${t.name()}"
+                                th:selected="${t.name() == selectedType}">
+                            ТИП
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-secondary">Фильтр</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Сброс -->
+        <div class="col-md-2">
+            <a th:href="@{/notes}" class="btn btn-outline-dark w-100">Сбросить</a>
+        </div>
+    </div>
+
+    <!-- Заметок в базе нет -->
+    <div class="alert alert-info"
+         th:if="${#lists.isEmpty(notes) and search == null and selectedType == null}">
         Заметок пока нет. Добавьте первую!
+    </div>
+
+    <!-- Поиск не дал результатов -->
+    <div class="alert alert-warning"
+         th:if="${#lists.isEmpty(notes) and (search != null or selectedType != null)}">
+        По запросу ничего не найдено.
     </div>
 
     <!-- Таблица, если заметки есть -->
