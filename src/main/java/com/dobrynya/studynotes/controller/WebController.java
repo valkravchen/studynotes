@@ -25,7 +25,7 @@ public class WebController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("appName", "StudyNotes");
-        model.addAttribute("noteCount", noteService.findAll(null).size());
+        model.addAttribute("noteCount", noteService.findAll(null, null).size());
         model.addAttribute("currentDate", LocalDateTime.now());
         return "index";
     }
