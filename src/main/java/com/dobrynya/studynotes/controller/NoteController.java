@@ -22,8 +22,9 @@ public class NoteController {
     }
 
     @GetMapping
-    public List<NoteResponseDTO> findAll(@RequestParam(required = false) String type) {
-        return noteService.findAll(type);
+    public List<NoteResponseDTO> findAll(@RequestParam(required = false) String type,
+                                         @RequestParam(required = false) String search) {
+        return noteService.findAll(type, search);
     }
 
     @GetMapping("/{id}")
