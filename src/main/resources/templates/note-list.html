@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments :: head(???)}"></head>
+<head th:replace="~{fragments :: head('Заметки')}"></head>
 
 <body>
 
-<nav th:replace="~{fragments :: ???}"></nav>
+<nav th:replace="~{fragments :: navbar}"></nav>
 
 <div class="container mt-4">
-    <!-- Всё содержимое страницы (заголовок, поиск, таблица) — без изменений -->
-    ...
+    <!-- Содержимое без изменений -->
 </div>
 
-<footer th:replace="~{fragments :: ???}"></footer>
+<footer th:replace="~{fragments :: footer}"></footer>
 
 </body>
 </html>
