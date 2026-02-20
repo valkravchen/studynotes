@@ -22,9 +22,12 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
-    public List<NoteResponseDTO> findAll(String type) {
+    public List<NoteResponseDTO> findAll(String type, String search) {
         List<Note> notes;
-        if (type != null && !type.isBlank()) {
+
+        if (search != null && !search.isBlank()) {
+            notes = noteRepository.findByTitleContainingIgnoreCase(search);
+        } else if (type != null && !type.isBlank()) {
             try {
                 NoteType noteType = NoteType.valueOf(type.toUpperCase());
                 notes = noteRepository.findByType(noteType);
