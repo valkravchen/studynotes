@@ -8,7 +8,99 @@
 <nav th:replace="~{fragments :: navbar}"></nav>
 
 <div class="container mt-4">
-    <!-- Содержимое без изменений -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Мои заметки</h1>
+        <a th:href="@{/notes/new}" class="btn btn-success">+ Добавить заметку</a>
+    </div>
+
+    <!-- Поиск и фильтрация -->
+    <div class="row mb-3">
+        <!-- Поиск по заголовку -->
+        <div class="col-md-6">
+            <form th:action="@{/notes}" method="get">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control"
+                           placeholder="Поиск по заголовку..."
+                           th:value="${search}">
+                    <button type="submit" class="btn btn-outline-primary">Найти</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Фильтр по типу -->
+        <div class="col-md-4">
+            <form th:action="@{/notes}" method="get">
+                <div class="input-group">
+                    <select name="type" class="form-select">
+                        <option value="">Все типы</option>
+                        <option th:each="t : ${types}"
+                                th:value="${t.name()}"
+                                th:text="${t.name()}"
+                                th:selected="${t.name() == selectedType}">
+                            ТИП
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-secondary">Фильтр</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Сброс -->
+        <div class="col-md-2">
+            <a th:href="@{/notes}" class="btn btn-outline-dark w-100">Сбросить</a>
+        </div>
+    </div>
+
+    <!-- Заметок в базе нет -->
+    <div class="alert alert-info"
+         th:if="${#lists.isEmpty(notes) and search == null and selectedType == null}">
+        Заметок пока нет. Добавьте первую!
+    </div>
+
+    <!-- Поиск не дал результатов -->
+    <div class="alert alert-warning"
+         th:if="${#lists.isEmpty(notes) and (search != null or selectedType != null)}">
+        По запросу ничего не найдено.
+    </div>
+
+    <!-- Таблица, если заметки есть -->
+    <table class="table table-striped table-hover" th:unless="${#lists.isEmpty(notes)}">
+        <thead class="table-dark">
+        <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Дата создания</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note, status : ${notes}">
+            <td th:text="${status.count}">1</td>
+            <td>
+                <a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.title}">Название</a>
+            </td>
+            <td>
+                <span class="badge bg-secondary" th:text="${note.type}">ТИП</span>
+            </td>
+            <td th:text="${note.createdAt}">2026-01-01</td>
+            <td>
+                <a th:href="@{/notes/{id}/edit(id=${note.id})}" class="btn btn-sm btn-outline-primary">
+                    Редактировать
+                </a>
+                <form th:action="@{/notes/{id}/delete(id=${note.id})}" method="post"
+                      style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Удалить эту заметку?')">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>

@@ -1,4 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{fragments :: head('Новая заметка')}"></head>
+
+<body>
+
 <nav th:replace="~{fragments :: navbar}"></nav>
-<!-- содержимое -->
+
+<div class="container mt-4">
+
+    <h1>Новая заметка</h1>
+
+    <form th:action="@{/notes}" method="post">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок</label>
+            <input type="text" id="title" name="title"
+                   class="form-control" placeholder="Введите заголовок" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Содержимое</label>
+            <textarea id="content" name="content"
+                      class="form-control" rows="10"
+                      placeholder="Markdown-текст заметки..."></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="type" class="form-label">Тип</label>
+            <select id="type" name="type" class="form-select">
+                <option value="">-- Выберите тип --</option>
+                <option value="LESSON">Урок</option>
+                <option value="REVIEW">Повторение</option>
+                <option value="CHEATSHEET">Шпаргалка</option>
+                <option value="GUIDE">Руководство</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/notes}" class="btn btn-outline-secondary">Отмена</a>
+
+    </form>
+
+</div>
+
 <footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
