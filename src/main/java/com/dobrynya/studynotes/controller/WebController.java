@@ -2,6 +2,7 @@ package com.dobrynya.studynotes.controller;
 
 import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
+import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +31,16 @@ public class WebController {
     }
 
     @GetMapping("/notes")
-    public String listNotes(Model model) {
-        List<NoteResponseDTO> notes = noteService.findAll(null);
+    public String listNotes(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String type,
+            Model model
+    ) {
+        List<NoteResponseDTO> notes = noteService.findAll(type, search);
         model.addAttribute("notes", notes);
+        model.addAttribute("search", search);
+        model.addAttribute("selectedType", type);
+        model.addAttribute("types", NoteType.values());
         return "note-list";
     }
 
