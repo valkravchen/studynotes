@@ -92,4 +92,11 @@ public class WebController {
         noteService.update(id, dto);
         return "redirect:/notes";
     }
+
+    @GetMapping("/notes/{id}")
+    public String viewNote(@PathVariable Long id, Model model) {
+        NoteResponseDTO note = noteService.findById(id);
+        model.addAttribute("note", note);
+        return "note-view";
+    }
 }
