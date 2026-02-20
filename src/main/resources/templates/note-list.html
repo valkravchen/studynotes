@@ -79,7 +79,9 @@
         <tbody>
         <tr th:each="note, status : ${notes}">
             <td th:text="${status.count}">1</td>
-            <td th:text="${note.title}">Название</td>
+            <td>
+                <a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.title}">Название</a>
+            </td>
             <td>
                 <span class="badge bg-secondary" th:text="${note.type}">ТИП</span>
             </td>
