@@ -85,6 +85,7 @@ public class WebController {
             @RequestParam(required = false) String content,
             @RequestParam(required = false) String type
     ) {
+
         NoteCreateDTO dto = new NoteCreateDTO();
         dto.setTitle(title);
         dto.setContent(content);
