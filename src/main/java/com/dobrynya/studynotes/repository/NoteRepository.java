@@ -10,5 +10,8 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findByType(NoteType type);
+
     List<Note> findByTitleContainingIgnoreCase(String title);
+
+    boolean existsByTitle(String title);
 }
