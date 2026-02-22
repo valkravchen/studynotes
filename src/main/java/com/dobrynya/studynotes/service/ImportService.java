@@ -1,9 +1,12 @@
 package com.dobrynya.studynotes.service;
 
 import com.dobrynya.studynotes.dto.ImportResult;
+import com.dobrynya.studynotes.model.Note;
+import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.repository.NoteRepository;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -45,6 +48,26 @@ public class ImportService {
     }
 
     private void processFile(Path file, ImportResult result) {
+        try {
+            String content = Files.readString(file, StandardCharsets.UTF_8);
+            String fileName = file.getFileName().toString();
+            String title = parseTitle(content, fileName);
 
+            if (noteRepository.existsByTitle(title)) {
+                result.incrementSkipped();
+                return;
+            }
+
+            Note note = new Note();
+            note.setTitle(title);
+            note.setContent(content);
+            note.setType(NoteType.LESSON);
+
+            noteRepository.save(note);
+            result.incrementImported();
+
+        } catch (IOException e) {
+            result.addError("Ошибка чтения файла: " + file.getFileName());
+        }
     }
 }
