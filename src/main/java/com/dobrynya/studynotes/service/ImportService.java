@@ -21,6 +21,24 @@ public class ImportService {
 
     public ImportResult importFromFolder(String folderPath) {
         ImportResult result = new ImportResult();
+        Path folder = Path.of(folderPath);
+
+        if (!Files.exists(folder) || !Files.isDirectory(folder)) {
+            result.addError("Папка не найдена: " + folderPath);
+            return result;
+        }
+
+        List<Path> mdFiles = getMdFiles(folder);
+
+        if (mdFiles.isEmpty()) {
+            result.addError("В папке нет .md файлов");
+            return result;
+        }
+
+        for (Path file : mdFiles) {
+            processFile(file, result);
+        }
+
         return result;
     }
 
