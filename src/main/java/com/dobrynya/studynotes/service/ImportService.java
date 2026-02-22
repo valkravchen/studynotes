@@ -3,6 +3,12 @@ package com.dobrynya.studynotes.service;
 import com.dobrynya.studynotes.dto.ImportResult;
 import com.dobrynya.studynotes.repository.NoteRepository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class ImportService {
     private final NoteRepository noteRepository;
 
@@ -25,5 +31,16 @@ public class ImportService {
                 .findFirst()
                 .map(line -> line.substring(2).trim())
                 .orElse(fallback);
+    }
+
+    private List<Path> getMdFiles(Path folder) {
+        try(Stream<Path> stream = Files.list(folder)) {
+           return stream
+                   .filter(Files::isRegularFile)
+                   .filter(path -> path.toString().endsWith(".md"))
+                   .toList();
+        } catch (IOException e) {
+            return List.of();
+        }
     }
 }
