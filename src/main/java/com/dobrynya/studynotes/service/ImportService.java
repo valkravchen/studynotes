@@ -34,13 +34,17 @@ public class ImportService {
     }
 
     private List<Path> getMdFiles(Path folder) {
-        try(Stream<Path> stream = Files.list(folder)) {
-           return stream
-                   .filter(Files::isRegularFile)
-                   .filter(path -> path.toString().endsWith(".md"))
-                   .toList();
+        try (Stream<Path> stream = Files.list(folder)) {
+            return stream
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.toString().endsWith(".md"))
+                    .toList();
         } catch (IOException e) {
             return List.of();
         }
+    }
+
+    private void processFile(Path file, ImportResult result) {
+
     }
 }
