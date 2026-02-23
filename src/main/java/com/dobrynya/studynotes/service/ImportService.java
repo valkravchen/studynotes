@@ -4,6 +4,7 @@ import com.dobrynya.studynotes.dto.ImportResult;
 import com.dobrynya.studynotes.model.Note;
 import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.repository.NoteRepository;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Service
 public class ImportService {
     private final NoteRepository noteRepository;
 

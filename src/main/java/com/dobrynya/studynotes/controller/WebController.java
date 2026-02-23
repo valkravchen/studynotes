@@ -1,8 +1,10 @@
 package com.dobrynya.studynotes.controller;
 
+import com.dobrynya.studynotes.dto.ImportResult;
 import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.model.NoteType;
+import com.dobrynya.studynotes.service.ImportService;
 import com.dobrynya.studynotes.service.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import java.util.List;
 @Controller
 public class WebController {
     private final NoteService noteService;
+    private final ImportService importService;
 
-    public WebController(NoteService noteService) {
+    public WebController(NoteService noteService, ImportService importService) {
         this.noteService = noteService;
+        this.importService = importService;
     }
 
     @GetMapping("/")
@@ -99,5 +103,17 @@ public class WebController {
         NoteResponseDTO note = noteService.findById(id);
         model.addAttribute("note", note);
         return "note-view";
+    }
+
+    @GetMapping("/notes/import")
+    public String showImportFrom() {
+        return "import";
+    }
+
+    @PostMapping("/notes/import")
+    public String importNotes(@RequestParam String folderPath, Model model) {
+        ImportResult result = importService.importFromFolder(folderPath);
+        model.addAttribute("result", result);
+        return "import";
     }
 }
