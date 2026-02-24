@@ -5,6 +5,7 @@ import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
 import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.ImportService;
+import com.dobrynya.studynotes.service.MarkdownService;
 import com.dobrynya.studynotes.service.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,13 @@ import java.util.List;
 public class WebController {
     private final NoteService noteService;
     private final ImportService importService;
+    private final MarkdownService markdownService;
 
-    public WebController(NoteService noteService, ImportService importService) {
+    public WebController(NoteService noteService, ImportService importService,
+                         MarkdownService markdownService) {
         this.noteService = noteService;
         this.importService = importService;
+        this.markdownService = markdownService;
     }
 
     @GetMapping("/")
@@ -101,7 +105,9 @@ public class WebController {
     @GetMapping("/notes/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
         NoteResponseDTO note = noteService.findById(id);
+        String contentHtml = markdownService.renderToHtml(note.getContent());
         model.addAttribute("note", note);
+        model.addAttribute("contentHtml", contentHtml);
         return "note-view";
     }
 
