@@ -41,3 +41,5 @@ target/
 # OS
 .DS_Store
 Thumbs.db
+/test-notes/Модуль 15. Импорт md-файлов — Java NIO.md
+/test-notes/Java NIO — практический минимум для StudyNotes.md
