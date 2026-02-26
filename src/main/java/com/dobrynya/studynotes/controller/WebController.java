@@ -3,6 +3,7 @@ package com.dobrynya.studynotes.controller;
 import com.dobrynya.studynotes.dto.ImportResult;
 import com.dobrynya.studynotes.dto.NoteCreateDTO;
 import com.dobrynya.studynotes.dto.NoteResponseDTO;
+import com.dobrynya.studynotes.dto.NoteWithOutline;
 import com.dobrynya.studynotes.model.NoteType;
 import com.dobrynya.studynotes.service.ImportService;
 import com.dobrynya.studynotes.service.MarkdownService;
@@ -45,7 +46,14 @@ public class WebController {
             Model model
     ) {
         List<NoteResponseDTO> notes = noteService.findAll(type, search);
-        model.addAttribute("notes", notes);
+        List<NoteWithOutline> notesWithOutlines = notes.stream()
+                .map(note -> new NoteWithOutline(
+                        note,
+                        markdownService.extractHeadings(note.getContent())
+                ))
+                .toList();
+
+        model.addAttribute("notesWithOutlines", notesWithOutlines);
         model.addAttribute("search", search);
         model.addAttribute("selectedType", type);
         model.addAttribute("types", NoteType.values());

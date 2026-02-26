@@ -66,7 +66,7 @@ public class MarkdownService {
         }
     }
 
-    public List<HeadingInfo> extractHeading(String markdown) {
+    public List<HeadingInfo> extractHeadings(String markdown) {
         if (markdown == null || markdown.isBlank()) {
             return List.of();
         }
