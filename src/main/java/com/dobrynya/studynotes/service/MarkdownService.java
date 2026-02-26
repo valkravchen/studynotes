@@ -65,4 +65,14 @@ public class MarkdownService {
             return headings;
         }
     }
+
+    public List<HeadingInfo> extractHeading(String markdown) {
+        if (markdown == null || markdown.isBlank()) {
+            return List.of();
+        }
+        Node document = parser.parse(markdown);
+        HeadingVisitor visitor = new HeadingVisitor();
+        document.accept(visitor);
+        return visitor.getHeadings();
+    }
 }
