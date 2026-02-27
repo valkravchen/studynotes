@@ -26,7 +26,7 @@ public class NoteService {
         List<Note> notes;
 
         if (search != null && !search.isBlank()) {
-            notes = noteRepository.findByTitleContainingIgnoreCase(search);
+            notes = noteRepository.fullTextSearch(search);
         } else if (type != null && !type.isBlank()) {
             try {
                 NoteType noteType = NoteType.valueOf(type.toUpperCase());
