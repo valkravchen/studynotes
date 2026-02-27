@@ -14,4 +14,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findByTitleContainingIgnoreCase(String title);
 
     boolean existsByTitle(String title);
+
+    List<Note> findAllByOrderByTitleAsc();
 }

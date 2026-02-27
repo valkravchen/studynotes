@@ -35,7 +35,7 @@ public class NoteService {
                 throw new InvalidNoteTypeException(type);
             }
         } else {
-            notes = noteRepository.findAll();
+            notes = noteRepository.findAllByOrderByTitleAsc();
         }
         return noteMapper.toResponseDTOList(notes);
     }

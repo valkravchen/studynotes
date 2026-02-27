@@ -82,10 +82,16 @@
             <td>
                 <a th:href="@{/notes/{id}(id=${item.note.id})}"
                    th:text="${item.note.title}">Название</a>
-
+                <button th:if="${!#lists.isEmpty(item.headings)}"
+                        class="btn btn-sm btn-link p-0 ms-2"
+                        style="transition: transform 0.2s;"
+                        onclick="
+            this.closest('td').querySelector('.note-outline').classList.toggle('d-none');
+            this.style.transform = this.style.transform === 'rotate(180deg)' ? '' : 'rotate(180deg)';
+        ">▼</button>
                 <!-- Оглавление -->
                 <ul th:unless="${#lists.isEmpty(item.headings)}"
-                    class="list-unstyled mb-0 mt-1" style="font-size: 0.85em;">
+                    class="list-unstyled mb-0 mt-1 note-outline d-none" style="font-size: 0.85em;">
                     <li th:each="h : ${item.headings}"
                         th:class="${h.level == 3 ? 'ms-3 text-muted' : 'text-muted'}">
                         <span th:text="${h.text}">Заголовок</span>
