@@ -43,3 +43,21 @@ target/
 Thumbs.db
 /test-notes/Модуль 15. Импорт md-файлов — Java NIO.md
 /test-notes/Java NIO — практический минимум для StudyNotes.md
+/test-notes/Модуль 01. Создание проекта.md
+/test-notes/Модуль 02. Сущность Note.md
+/test-notes/Модуль 03. Репозиторий и сервис.md
+/test-notes/Модуль 04. DTO и маппер.md
+/test-notes/Модуль 05. REST контроллер.md
+/test-notes/Модуль 06. Валидация и обработка ошибок.md
+/test-notes/Модуль 07. Фильтрация по типу.md
+/test-notes/Модуль 08. Первая страница.md
+/test-notes/Модуль 09. Список заметок.md
+/test-notes/Модуль 10. Создание заметки.md
+/test-notes/Модуль 11. Редактирование заметки.md
+/test-notes/Модуль 12. Поиск и фильтрация.md
+/test-notes/Модуль 13. Просмотр заметки.md
+/test-notes/Модуль 14. Навигация и финальная шлифовка.md
+/test-notes/Модуль 16. Рендеринг Markdown → HTML.md
+/test-notes/Модуль 17. Оглавление заметок — парсинг заголовков из AST.md
+/test-notes/Модуль 17.5. Сортировка и UI-доработки списка заметок.md
+/test-notes/Модуль 18. Полнотекстовый поиск — PostgreSQL.md
