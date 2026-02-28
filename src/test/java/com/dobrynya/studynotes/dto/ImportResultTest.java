@@ -32,4 +32,13 @@ class ImportResultTest {
         result.incrementImported();
         assertEquals(2, result.getImported());
     }
+
+    @Test
+    @DisplayName("incrementSkipped() увеличивает счётчик")
+    void incrementSkippedIncreasesCounter() {
+        result.incrementSkipped();
+        result.incrementSkipped();
+        result.incrementSkipped();
+        assertEquals(3, result.getSkipped());
+    }
 }
