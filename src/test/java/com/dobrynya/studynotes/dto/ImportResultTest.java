@@ -24,4 +24,12 @@ class ImportResultTest {
         assertTrue(result.getErrors().isEmpty(), "errors должен быть пустым");
         assertEquals(0, result.getTotal(), "total должен быть 0");
     }
+
+    @Test
+    @DisplayName("incrementImported() увеличивает счётчик")
+    void incrementImportedIncreasesCounter() {
+        result.incrementImported();
+        result.incrementImported();
+        assertEquals(2, result.getImported());
+    }
 }
