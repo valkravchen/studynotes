@@ -41,4 +41,15 @@ class ImportResultTest {
         result.incrementSkipped();
         assertEquals(3, result.getSkipped());
     }
+
+    @Test
+    @DisplayName("addError() добавляет ошибки в список")
+    void addErrorAppendsToErrorList() {
+        result.addError("Ошибка чтения файла: notes.md");
+        result.addError("Файл повреждён: broken.md");
+
+        assertEquals(2, result.getErrors().size());
+        assertEquals("Ошибка чтения файла: notes.md", result.getErrors().get(0));
+        assertEquals("Файл повреждён: broken.md", result.getErrors().get(1));
+    }
 }
