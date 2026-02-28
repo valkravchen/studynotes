@@ -68,6 +68,7 @@ class ImportResultTest {
     }
 
 
+    @Test
     @DisplayName("Счётчики imported и skipped независимы друг от друга")
     void countersAreIndependent() {
         result.incrementImported();
