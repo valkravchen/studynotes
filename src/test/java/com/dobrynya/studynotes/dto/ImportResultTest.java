@@ -67,4 +67,15 @@ class ImportResultTest {
 
         assertEquals(6, total, "3 imported + 2 skipped + 1 error = 6");
     }
+
+
+    @DisplayName("Счётчики imported и skipped независимы друг от друга")
+    void countersAreIndependent() {
+        result.incrementImported();
+        result.incrementImported();
+        result.incrementSkipped();
+        assertEquals(2, result.getImported(),"imported не должен зависеть от skipped");
+        assertEquals(1, result.getSkipped(), "skipped не должен зависеть от imported");
+        assertTrue(result.getErrors().isEmpty(),"errors не должен меняться от инкрементов");
+    }
 }
