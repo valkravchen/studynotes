@@ -52,4 +52,19 @@ class ImportResultTest {
         assertEquals("Ошибка чтения файла: notes.md", result.getErrors().get(0));
         assertEquals("Файл повреждён: broken.md", result.getErrors().get(1));
     }
+
+    @Test
+    @DisplayName("getTotal() возвращает сумму imported + skipped + errors")
+    void getTotalReturnsSumOfAllCategories() {
+        result.incrementImported();
+        result.incrementImported();
+        result.incrementImported();
+        result.incrementSkipped();
+        result.incrementSkipped();
+        result.addError("Ошибка");
+
+        int total = result.getTotal();
+
+        assertEquals(6, total, "3 imported + 2 skipped + 1 error = 6");
+    }
 }
