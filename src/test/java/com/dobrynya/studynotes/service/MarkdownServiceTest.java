@@ -27,4 +27,11 @@ class MarkdownServiceTest {
         String result = markdownService.renderToHtml("");
         assertEquals("", result);
     }
+
+    @Test
+    @DisplayName("Строка из пробелов → пустая строка")
+    void renderBlankStringReturnsEmptyString() {
+        String result = markdownService.renderToHtml("   ");
+        assertEquals("", result);
+    }
 }
