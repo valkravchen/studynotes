@@ -74,4 +74,14 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<code"), "Должен содержать <code>");
         assertTrue(html.contains("String hello"), "Должен содержать код");
     }
+
+    @Test
+    @DisplayName("Ссылка [текст](url) рендерится в <a href>")
+    void renderLink() {
+        String markdown = "[Spring Docs](https://spring.io)";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<a"), "Должен содержать тег <a>");
+        assertTrue(html.contains("href=\"https://spring.io\""), "Должен содержать URL");
+        assertTrue(html.contains("Spring Docs"), "Должен содержать текст ссылки");
+    }
 }
