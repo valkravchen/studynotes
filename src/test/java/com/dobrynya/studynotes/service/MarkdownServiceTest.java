@@ -64,4 +64,14 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<strong>жирный</strong>"), "Должен рендерить **жирный**");
         assertTrue(html.contains("<em>курсивный</em>"), "Должен рендерить *курсив*");
     }
+
+    @Test
+    @DisplayName("Блок кода рендерится в <pre><code>")
+    void renderCodeBlock() {
+        String markdown = "```java\nString hello = \"world\";\n```";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<pre>"), "Должен содержать <pre>");
+        assertTrue(html.contains("<code"), "Должен содержать <code>");
+        assertTrue(html.contains("String hello"), "Должен содержать код");
+    }
 }
