@@ -44,4 +44,15 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<p>"), "Должен содержать тег <p>");
         assertTrue(html.contains("Просто текст без разметки"), "Должен содержать исходный текст");
     }
+
+    @Test
+    @DisplayName("Заголовки # и ## рендерятся в <h1> и <h2>")
+    void renderHeadings() {
+        String markdown = "# Заголовок первого уровня\n\n## Заголовок второго уровня";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<h1>"), "Должен содержать <h1>");
+        assertTrue(html.contains("Заголовок первого уровня"), "Должен содержать текст H1");
+        assertTrue(html.contains("<h2>"), "Должен содержать <h2>");
+        assertTrue(html.contains("Заголовок второго уровня"), "Должен содержать текст H2");
+    }
 }
