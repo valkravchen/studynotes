@@ -55,4 +55,13 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<h2>"), "Должен содержать <h2>");
         assertTrue(html.contains("Заголовок второго уровня"), "Должен содержать текст H2");
     }
+
+    @Test
+    @DisplayName("**жирный** → <strong>, *курсив* → <em>")
+    void renderBoldAndItalic() {
+        String markdown = "Это **жирный** и *курсивный* текст";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<strong>жирный</strong>"), "Должен рендерить **жирный**");
+        assertTrue(html.contains("<em>курсивный</em>"), "Должен рендерить *курсив*");
+    }
 }
