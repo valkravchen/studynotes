@@ -84,4 +84,15 @@ class MarkdownServiceTest {
         assertTrue(html.contains("href=\"https://spring.io\""), "Должен содержать URL");
         assertTrue(html.contains("Spring Docs"), "Должен содержать текст ссылки");
     }
+
+    @Test
+    @DisplayName("GFM таблица рендерится в <table>")
+    void renderGfmTable() {
+        String markdown = "| Заголовок | Значение |\n| --- | --- |\n| Ячейка 1 | Ячейка 2 |";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<table>"), "Должен содержать <table>");
+        assertTrue(html.contains("<th>"), "Должен содержать заголовки таблицы <th>");
+        assertTrue(html.contains("<td>"), "Должен содержать ячейки <td>");
+        assertTrue(html.contains("Ячейка 1"), "Должен содержать данные ячеек");
+    }
 }
