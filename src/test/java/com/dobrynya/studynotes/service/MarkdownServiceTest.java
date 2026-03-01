@@ -20,4 +20,11 @@ class MarkdownServiceTest {
         String result = markdownService.renderToHtml(null);
         assertEquals("", result);
     }
+
+    @Test
+    @DisplayName("Пустая строка на входе → пустая строка")
+    void renderEmptyStringReturnsEmptyString() {
+        String result = markdownService.renderToHtml("");
+        assertEquals("", result);
+    }
 }
