@@ -95,4 +95,12 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<td>"), "Должен содержать ячейки <td>");
         assertTrue(html.contains("Ячейка 1"), "Должен содержать данные ячеек");
     }
+
+    @Test
+    @DisplayName("Инлайн-код `text` рендерится в <code>")
+    void renderInlineCode() {
+        String markdown = "Используй `NoteService` для работы с заметками";
+        String html = markdownService.renderToHtml(markdown);
+        assertTrue(html.contains("<code>NoteService</code"), "Должен обернуть в <code>");
+    }
 }
