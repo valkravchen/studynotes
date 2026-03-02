@@ -125,4 +125,12 @@ class MarkdownServiceTest {
         List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
         assertTrue(headings.isEmpty(), "H1 не должен попадать в оглавление");
     }
+
+    @Test
+    @DisplayName("H4 заголовок не попадает в оглавление")
+    void h4IsExcludedFromHeadings() {
+        String markdown = "#### Это заголовок четвёртого уровня";
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+        assertTrue(headings.isEmpty(), "H4 не должен попадать в оглавление");
+    }
 }
