@@ -1,8 +1,14 @@
 package com.dobrynya.studynotes.service;
 
+import com.dobrynya.studynotes.dto.HeadingInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,5 +108,16 @@ class MarkdownServiceTest {
         String markdown = "Используй `NoteService` для работы с заметками";
         String html = markdownService.renderToHtml(markdown);
         assertTrue(html.contains("<code>NoteService</code"), "Должен обернуть в <code>");
+    }
+
+    @ParameterizedTest(name = "extractHeadings({0}) → пустой список")
+    @NullAndEmptySource
+    @ValueSource(strings = {"   ", "\t", "\n"})
+    void extractHeadingsFromBlankInputReturnsEmptyList(String input) {
+        // Act
+        List<HeadingInfo> headings = markdownService.extractHeadings(input);
+
+        // Assert
+        assertTrue(headings.isEmpty(), "Для пустого ввода список заголовков должен быть пустым");
     }
 }
