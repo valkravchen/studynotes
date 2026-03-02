@@ -114,10 +114,15 @@ class MarkdownServiceTest {
     @NullAndEmptySource
     @ValueSource(strings = {"   ", "\t", "\n"})
     void extractHeadingsFromBlankInputReturnsEmptyList(String input) {
-        // Act
         List<HeadingInfo> headings = markdownService.extractHeadings(input);
-
-        // Assert
         assertTrue(headings.isEmpty(), "Для пустого ввода список заголовков должен быть пустым");
+    }
+
+    @Test
+    @DisplayName("H1 заголовок не попадает в оглавление")
+    void h1IsExcludedFromHeadings() {
+        String markdown = "# Это заголовок первого уровня";
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+        assertTrue(headings.isEmpty(), "H1 не должен попадать в оглавление");
     }
 }
