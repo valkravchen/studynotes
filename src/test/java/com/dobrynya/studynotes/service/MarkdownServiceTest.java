@@ -216,4 +216,19 @@ class MarkdownServiceTest {
         List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
         assertTrue(headings.isEmpty(), "Текст без заголовков → пустой список");
     }
+
+    @Test
+    @DisplayName("Заголовок с форматированием — текст извлекается без разметки")
+    void headingWithFormattingExtractsCleanText() {
+        // Arrange
+        String markdown = "## **Важный** раздел";
+
+        // Act
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+
+        // Assert
+        assertEquals(1, headings.size());
+        assertEquals("Важный раздел", headings.get(0).getText(),
+                "Форматирование должно быть убрано, текст — чистый");
+    }
 }
