@@ -157,4 +157,14 @@ class MarkdownServiceTest {
         assertEquals(2, headings.get(0).getLevel(), "Уровень должен быть 2");
         assertEquals("Создание стримов", headings.get(0).getText(), "Текст должен совпадать");
     }
+
+    @Test
+    @DisplayName("H3 заголовок попадает в оглавление с уровнем 3")
+    void h3IsIncludedInHeadings() {
+        String markdown = "### Stream.filter()";
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+        assertEquals(1, headings.size(), "Должен быть один заголовок");
+        assertEquals(3, headings.get(0).getLevel(), "Уровень должен быть 3");
+        assertEquals("Stream.filter()", headings.get(0).getText(), "Текст должен совпадать");
+    }
 }
