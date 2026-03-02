@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -132,5 +133,18 @@ class MarkdownServiceTest {
         String markdown = "#### Это заголовок четвёртого уровня";
         List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
         assertTrue(headings.isEmpty(), "H4 не должен попадать в оглавление");
+    }
+
+    @ParameterizedTest(name = "Заголовок уровня {1} не попадает в оглавление")
+    @CsvSource({
+            "# H1 заголовок, 1",
+            "#### H4 заголовок, 4",
+            "##### H5 заголовок, 5",
+            "###### H6 заголовок, 6"
+    })
+    void excludedHeadingLevelsReturnEmptyList(String markdown, int level) {
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+        assertTrue(headings.isEmpty(),
+                "Заголовок уровня " + level + " не должен попадать в оглавление");
     }
 }
