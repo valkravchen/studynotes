@@ -208,4 +208,12 @@ class MarkdownServiceTest {
                 )
         );
     }
+
+    @Test
+    @DisplayName("Markdown без заголовков → пустой список")
+    void noHeadingsReturnsEmptyList() {
+        String markdown = "Обычный текст без заголовков.\n\nЕщё один параграф.";
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+        assertTrue(headings.isEmpty(), "Текст без заголовков → пустой список");
+    }
 }
