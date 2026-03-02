@@ -5,11 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -166,5 +165,47 @@ class MarkdownServiceTest {
         assertEquals(1, headings.size(), "Должен быть один заголовок");
         assertEquals(3, headings.get(0).getLevel(), "Уровень должен быть 3");
         assertEquals("Stream.filter()", headings.get(0).getText(), "Текст должен совпадать");
+    }
+
+    @ParameterizedTest(name = "Markdown с несколькими заголовками → {1} в оглавлении")
+    @MethodSource("multipleHeadingsData")
+    void extractsMultipleHeadingsInOrder(String markdown, int expectedCount,
+                                         List<Integer> expectedLevels,
+                                         List<String> expectedTexts) {
+        // Act
+        List<HeadingInfo> headings = markdownService.extractHeadings(markdown);
+
+        // Assert
+        assertEquals(expectedCount, headings.size(), "Количество заголовков");
+        for (int i = 0; i < expectedCount; i++) {
+            assertEquals(expectedLevels.get(i), headings.get(i).getLevel(),
+                    "Уровень заголовка " + (i + 1));
+            assertEquals(expectedTexts.get(i), headings.get(i).getText(),
+                    "Текст заголовка " + (i + 1));
+        }
+    }
+
+    static Stream<Arguments> multipleHeadingsData() {
+        return Stream.of(
+                Arguments.of(
+                        "## Часть 1\n\n### Подробности",
+                        2,
+                        List.of(2, 3),
+                        List.of("Часть 1", "Подробности")
+                ),
+                Arguments.of(
+                        "# Заголовок\n\n## Раздел\n\n### Подраздел\n\n#### Деталь",
+                        2,
+                        List.of(2, 3),
+                        List.of("Раздел", "Подраздел")
+                ),
+                // Три H2 подряд
+                Arguments.of(
+                        "## Первый\n\n## Второй\n\n## Третий",
+                        3,
+                        List.of(2, 2, 2),
+                        List.of("Первый", "Второй", "Третий")
+                )
+        );
     }
 }
