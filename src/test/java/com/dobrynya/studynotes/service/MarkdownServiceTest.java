@@ -95,7 +95,6 @@ class MarkdownServiceTest {
         assertTrue(html.contains("<td>"), "Должен содержать ячейки <td>");
         assertTrue(html.contains("Ячейка 1"), "Должен содержать данные ячеек");
     }
-
     @Test
     @DisplayName("Инлайн-код `text` рендерится в <code>")
     void renderInlineCode() {
