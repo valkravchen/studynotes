@@ -207,7 +207,6 @@ class MarkdownServiceTest {
                 )
         );
     }
-
     @Test
     @DisplayName("Markdown без заголовков → пустой список")
     void noHeadingsReturnsEmptyList() {
