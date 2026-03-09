@@ -40,7 +40,6 @@ class ImportResultTest {
         result.incrementSkipped();
         assertEquals(3, result.getSkipped());
     }
-
     @Test
     @DisplayName("addError() добавляет ошибки в список")
     void addErrorAppendsToErrorList() {
