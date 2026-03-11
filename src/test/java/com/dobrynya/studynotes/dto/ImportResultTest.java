@@ -63,7 +63,6 @@ class ImportResultTest {
         result.addError("Ошибка");
 
         int total = result.getTotal();
-
         assertEquals(6, total, "3 imported + 2 skipped + 1 error = 6");
     }
 
