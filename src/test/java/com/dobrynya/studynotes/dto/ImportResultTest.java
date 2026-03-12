@@ -66,7 +66,6 @@ class ImportResultTest {
         assertEquals(6, total, "3 imported + 2 skipped + 1 error = 6");
     }
 
-
     @Test
     @DisplayName("Счётчики imported и skipped независимы друг от друга")
     void countersAreIndependent() {
